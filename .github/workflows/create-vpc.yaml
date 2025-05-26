@@ -5,7 +5,7 @@ on:
     paths:
       - 'vpc-3tier.yaml'
       - '.github/workflows/create-vpc.yaml'
-  workflow_dispatch:  # 수동 실행도 허용
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -26,5 +26,8 @@ jobs:
       run: |
         aws cloudformation deploy \
           --template-file vpc-3tier.yaml \
-          --stack-name github-vpc-stack \
+          --stack-name vpc-3tier-stack \
           --capabilities CAPABILITY_NAMED_IAM
+
+    - name: Describe Stack
+      run: aws cloudformation describe-stacks --stack-name vpc-3tier-stack
